@@ -13,7 +13,7 @@ jobs:
       - run: echo "Hello David"
 
       - name: Checkout
-        uses: actions/checkout@3.5.2
+        uses: actions/checkout@6.0.1
 
       - name: List files of the repository
         run: |
