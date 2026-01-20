@@ -1,15 +1,42 @@
-name: My First Workflow
-on: 
+name: My First Workflow      # 工作流的名称
+on:                          # 触发条件
   push: 
     branches:
-      - main 
-  workflow_dispatch:
+      - 'main'               # 推送到了main分支时，工作流才会被触发。
+    paths:
+      - 'doc/**'             # 当doc文件夹中的文件发生变化时，工作流才会被触发。
+  workflow_dispatch:         # 支持手动触发 
+    inputs:
+      someString:
+        description: '请输入文本'
+        required: true
+      someOption:
+        description: '请选择一个选项'
+        default: 'David'
+        type: choice
+        options:
+          - Tom
+          - Jerry
+          - David
+      someToggle:
+        description: '打开还是关闭呢'
+        default: true
+        type: boolean
+      someEnv:
+        description: '环境设定'
+        type: environment
+        required: true
 
 jobs:
   MyFirstJob:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "✅ Hello David"
+      - run: |
+          echo "✅ Hello David"
+          echo "some String = ${{ inputs.someString }}"
+          echo "some Option = ${{ inputs.someOption }}"
+          echo "some Toggle = ${{ inputs.someToggle }}"
+          echo "some Environment = ${{ inputs.someEnv }}"
       - name: Checkout
         uses: actions/checkout@v6
       - name: List files in repository
