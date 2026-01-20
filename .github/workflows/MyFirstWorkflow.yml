@@ -28,7 +28,7 @@ on:                          # 触发条件
         required: false
 
 jobs:
-  MyFirstJob:
+  job01:
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -43,5 +43,19 @@ jobs:
         run: |
           echo "The repository ${{ github.repository }} contains the following files:"
           tree
+  job02:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: "echo job: {{ github.job }}"
+  job03:
+    runs-on: ubuntu-22.04
+    needs: job02
+    steps:
+      - run: "echo job: {{ github.job }}"
+  job04:
+    runs-on: ubuntu-22.04
+    needs: [job01, job02]
+    steps:
+      - run: "echo job: {{ github.job }}"
     
 
