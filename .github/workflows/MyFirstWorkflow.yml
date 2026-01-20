@@ -25,7 +25,7 @@ on:                          # 触发条件
       someEnv:
         description: '环境设定'
         type: environment
-        required: true
+        required: false
 
 jobs:
   MyFirstJob:
